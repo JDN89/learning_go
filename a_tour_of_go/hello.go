@@ -1,11 +1,15 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
+
+// func swap(x, y int) (int, int) {
+// 	return y, x
+// }
 
 func main() {
-	fmt.Print("Hello")
-	var a = 1
-	var b = 2
-	var c = a + b
-	fmt.Printf("a + b = %d \n", c)
+	// fmt.Println(swap(4, 3))
+	const Truth = true
+	Truth = false
 }
