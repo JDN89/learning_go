@@ -1,3 +1,0 @@
-- In go vars die met hoogdletter geschreven zijn, zijn exporteerbaar. Ze zijn bereikbaar in andere packages. Dit is de go variant van public en private
-- unlike in JAVA everything is standard copy by value. If you want to use refs you have to use pointers explicitly.
-- Arrays have a fixed length. Slices are a view into an array and can grow or shrink in size and are mutable.
