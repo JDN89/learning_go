@@ -11,7 +11,5 @@
 ## AOC
 
 ## backend basics in go
-(backend basics in go)[https://eblog.fly.dev/backendbasics.html]
-
-
+[backend baiics in go](https://eblog.fly.dev/backendbasics.html)
 
