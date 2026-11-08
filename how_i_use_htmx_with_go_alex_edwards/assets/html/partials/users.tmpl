@@ -1,0 +1,13 @@
+{{define "partial:users:rows"}}
+    {{range .}}
+    <tr>
+        <td>{{ .Name }}</td>
+        <td>{{ .Email }}</td>
+        <td>
+            {{if .IsGopher}}
+                {{template "partial:image:gopher" 24}}
+            {{end}}
+        </td>
+    </tr>
+    {{end}}
+{{end}}

@@ -56,7 +56,9 @@ func (h *htmlRenderer) render(w http.ResponseWriter, status int, data any, templ
 	if err != nil {
 		return err
 	}
+	// We could set the Vary: HX-Request header in searchUsers, but I think it's easier to just always set it on all responses in the render() function. It does mean that we'll be setting the Vary header on all responses — including those from our home handler and listUsers — which isn't strictly necessary and a little bit wasteful. But I think it's worth it to avoid having to remember setting the Vary header correctly in individual handlers, and the risk of bugs that forgetting it may cause.
 
+	w.Header().Add("Vary", "HX-Request")
 	w.WriteHeader(status)
 	buf.WriteTo(w)
 

@@ -1,0 +1,24 @@
+{{define "page:title"}}Users{{end}}
+
+{{define "page:content"}}
+<!-- the inputs name attribute provides the query -->
+<input type="search" name="query"
+       placeholder="Begin Typing To Search Users..."
+       hx-get="/users/search"
+       hx-trigger="input changed delay:500ms, keyup[key=='Enter']"
+       hx-target="#search-results"
+       hx-push-url="true">
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody id="search-results">
+        {{template "partial:users:rows" .}}
+    </tbody>
+</table>
+{{end}}

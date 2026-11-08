@@ -6,6 +6,19 @@
         <title>{{template "page:title" .}}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
+<!--Now that this is set, if there is a cache miss when using the back button, HTMX will send a request to our application without the HX-Request: true header, and our application will send back the complete HTML page to reshow to the user. -->
+	<meta
+            name="htmx-config"
+            content='{
+                "historyRestoreAsHxRequest": false,
+                "responseHandling":[
+                    {"code":"204", "swap": false},
+                    {"code":"422", "swap": true},
+                    {"code":"[45]..", "swap": true, "target": "body"},
+                    {"code":"...", "swap": true}
+                ]
+            }'
+	 >
         <link rel="stylesheet" href="/static/css/bamboo.min.css">
 <!--This means that HTMX will be fetched by the browser in parallel as it is parsing the web page HTML, but the script won't be executed until the HTML is fully parsed and the DOM is built. -->
 <!--https://flaviocopes.com/javascript-async-defer/-->
