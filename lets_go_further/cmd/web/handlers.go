@@ -7,6 +7,7 @@ import (
 	"github.com/JDN89/learning_go/internal/server"
 )
 
+// TODO move to main.go
 type Application struct {
 	config config
 	logger *slog.Logger
