@@ -1,8 +1,10 @@
 package main
 
 import (
+	"fmt"
 	"log/slog"
 	"net/http"
+	"strconv"
 
 	"github.com/JDN89/learning_go/internal/server"
 )
@@ -21,6 +23,20 @@ func (app *Application) Home(w http.ResponseWriter, r *http.Request) {
 		app.logger.Error(err.Error())
 		http.Error(w, http.StatusText(500), 500)
 	}
+}
+
+func (app *Application) CreateMovie(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintln(w, "crate a new move")
+}
+
+func (app *Application) ShowMovie(w http.ResponseWriter, r *http.Request) {
+	id, err := strconv.Atoi(r.PathValue("id"))
+
+	if err != nil || id < 1 {
+		http.NotFound(w, r)
+		return
+	}
+	fmt.Fprintf(w, "show the details of movie %d\n", id)
 }
 
 // func (app *application) gopher(w http.ResponseWriter, r *http.Request) {

@@ -1,0 +1,17 @@
+{{define "page:movies"}} Movies {{end}}
+
+{{define "page:content"}}
+
+<table>
+    <thead>
+        <tr>
+            <th>title</th>
+            <th>year</th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody id="search-results">
+        {{template "partial:users:rows" .}}
+    </tbody>
+</table>
+{{end}}
