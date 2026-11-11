@@ -1,7 +1,5 @@
 package main
 
-import "github.com/JDN89/learning_go/internal/handlers"
-
 import (
 	"flag"
 	"fmt"
@@ -9,6 +7,9 @@ import (
 	"net/http"
 	"os"
 	"time"
+
+	"github.com/JDN89/learning_go/internal/assets"
+	"github.com/JDN89/learning_go/internal/server"
 )
 
 const version = "1.0.0"
@@ -16,11 +17,6 @@ const version = "1.0.0"
 type config struct {
 	port int
 	env  string
-}
-
-type application struct {
-	config config
-	logger *slog.Logger
 }
 
 func main() {
@@ -37,21 +33,32 @@ func main() {
 	logger := slog.New(slog.NewTextHandler(os.Stdout, nil))
 	// Declare an instance of the application struct, containing the config struct and
 	// the logger.
-	app := &application{
+
+	// Initialize a new htmlRenderer, parsing the base template and all partial
+	// templates from assets/html into the shared template set.
+	htmlRenderer, err := server.NewHTMLRenderer(assets.HTMLFiles, "base.tmpl", "partials/*.tmpl")
+	if err != nil {
+		logger.Error(err.Error())
+		os.Exit(1)
+	}
+
+	app := &Application{
 		config: cfg,
 		logger: logger,
+		html:   htmlRenderer,
 	}
 	// Declare a new servemux and add a /v1/healthcheck route which dispatches requests
 	// to the healthcheckHandler method (which we will create in a moment).
 	mux := http.NewServeMux()
-	mux.Handle("/healthz", handlers.Healthcheck(app.config.env, version))
+	mux.Handle("/healthz", Healthcheck(app.config.env, version))
+	mux.HandleFunc("/{$}", app.Home)
 
 	// mux.HandleFunc("/v1/healthcheck", app.healthcheckHandler)
 	// Declare an HTTP server which listens on the port provided in the config struct,
 	// uses the servemux we created above as the handler, has some sensible timeout
 	// settings, and writes any log messages to the structured logger at Error level.
 	srv := &http.Server{
-		Addr:         fmt.Sprintf(":%d", cfg.port),
+		Addr:         fmt.Sprintf(":%d", app.config.port),
 		Handler:      mux,
 		IdleTimeout:  time.Minute,
 		ReadTimeout:  5 * time.Second,
@@ -59,8 +66,8 @@ func main() {
 		ErrorLog:     slog.NewLogLogger(logger.Handler(), slog.LevelError),
 	}
 	// Start the HTTP server.
-	logger.Info("starting server", "addr", srv.Addr, "env", cfg.env)
-	err := srv.ListenAndServe()
+	logger.Info("starting server", "addr", srv.Addr, "env", app.config.env)
+	err = srv.ListenAndServe()
 	logger.Error(err.Error())
 	os.Exit(1)
 }
