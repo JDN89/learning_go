@@ -6,6 +6,7 @@
         <meta charset='utf-8'>
         <title>{{template "page:title" .}}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/static/css/app.css">
 
 <!--Now that this is set, if there is a cache miss when using the back button, HTMX will send a request to our application without the HX-Request: true header, and our application will send back the complete HTML page to reshow to the user. -->
 	<meta

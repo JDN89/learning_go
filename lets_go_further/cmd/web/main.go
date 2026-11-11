@@ -50,6 +50,8 @@ func main() {
 	// Declare a new servemux and add a /v1/healthcheck route which dispatches requests
 	// to the healthcheckHandler method (which we will create in a moment).
 	mux := http.NewServeMux()
+	// Serve embedded CSS, JavaScript, and other static assets from /static/.
+	mux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.FS(assets.StaticFiles))))
 	mux.Handle("/healthz", Healthcheck(app.config.env, version))
 	mux.HandleFunc("/{$}", app.Home)
 

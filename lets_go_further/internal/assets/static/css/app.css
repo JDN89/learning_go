@@ -1,0 +1,64 @@
+:root {
+    /* Pond-inspired palette */
+    --pond-ink: #000000;
+    --pond-home: #e1ebf7;
+    --pond-lavender: #cba6f7;
+    --pond-lavender-ink: #3f1d68;
+    --pond-lime: #cef058;
+    --pond-green: #cbe25b;
+
+    --ink: var(--pond-ink);
+    --muted: #4c5164;
+    --line: rgba(0, 0, 0, .2);
+    --accent: var(--pond-lavender);
+    --paper: var(--pond-home);
+}
+
+* { box-sizing: border-box; }
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    color: var(--ink);
+    background: var(--paper);
+    font: 1rem/1.6 system-ui, sans-serif;
+}
+
+main {
+    flex: 1
+}
+
+.container { width: min(100% - 2rem, 60rem); margin-inline: auto; }
+.home { display: grid; place-items: center; padding-block: 4rem; }
+h1 { margin: 0; color: var(--accent); font-size: clamp(2.5rem, 7vw, 5rem); letter-spacing: -.06em; }
+footer { border-top: 1px solid var(--line); color: var(--muted); font-size: .875rem;  }
+.footer__inner { text-align: center;}
+.footer__inner p { margin: 0; }
+
+/*
+   AI generated STUDY NOTES
+
+   `min-height: 100vh` makes the body at least as tall as the browser
+   viewport. `vh` means "viewport height" and `100vh` means 100% of it.
+
+   The body is a flex container. Its direct children are `main` and
+   `footer`, and `flex-direction: column` stacks them vertically.
+
+   `main { flex: 1; }` makes main use the remaining vertical space after
+   the footer's height is accounted for. This keeps the footer at the
+   bottom on short pages, while allowing it to move down naturally when
+   the page has more content. This works because main is the child of the flexbox containter: body.
+
+   `.home` is inside `main`, so `.home { flex: 1; }` would only work if
+   `main` were also a flex container. The `.home` rules above currently
+   use CSS Grid to center the title instead.
+
+   `clamp(minimum, preferred, maximum)` creates a responsive value.
+   For example, `clamp(2.5rem, 7vw, 5rem)` means the font size should
+   prefer 7% of the viewport width, but never be smaller than 2.5rem or
+   larger than 5rem.
+
+   `var(--accent)` reads the reusable `--accent` color variable defined
+   near the top of this file. Custom properties make theme changes easier.
+*/
