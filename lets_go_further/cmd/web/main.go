@@ -52,11 +52,10 @@ func main() {
 	mux := http.NewServeMux()
 	// Serve embedded CSS, JavaScript, and other static assets from /static/.
 	mux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.FS(assets.StaticFiles))))
-	mux.Handle("/healthz", Healthcheck(app.config.env, version))
+	mux.Handle("/healthz", app.Healthcheck(app.config.env, version))
 	mux.HandleFunc("/{$}", app.Home)
 	mux.HandleFunc("GET /movie/{id}", app.ShowMovie)
 	mux.HandleFunc("POST /movie", app.CreateMovie)
-	mux.HandleFunc("/movie", app.CreateMovie)
 
 	// mux.HandleFunc("/v1/healthcheck", app.healthcheckHandler)
 	// Declare an HTTP server which listens on the port provided in the config struct,

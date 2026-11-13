@@ -1,17 +1,32 @@
 package main
 
 import (
-	"fmt"
+	"encoding/json/v2"
 	"net/http"
 )
 
-func Healthcheck(environment, version string) http.HandlerFunc {
+// NOTE in go methods can be defined in different file from where the Type is defined as long as they are in the same package
+func (app *Application) Healthcheck(environment, version string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		data := map[string]string{
+			"status":      "available",
+			"environment": environment,
+			"version":     version,
+		}
+
+		js, err := json.Marshal(data)
+		if err != nil {
+			app.logger.Error(err.Error())
+			http.Error(w, "The server encountered a problem and could not process your request", http.StatusInternalServerError)
+			return
+		}
+
+		js = append(js, '\n')
+
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
 
-		fmt.Fprintf(w, `{"status":"available","environment":%q,"version":%q}`,
-			environment, version)
+		_, _ = w.Write(js)
 
 		// The previous HTML response:
 		// w.Header().Set("Content-Type", "text/html; charset=utf-8")
