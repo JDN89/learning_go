@@ -88,7 +88,6 @@ func IsValid(s string) bool {
 			}
 		}
 
-		fmt.Println(idx, char)
 	}
 	return len(stack) == 0
 }
