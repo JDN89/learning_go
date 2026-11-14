@@ -15,3 +15,14 @@ func TestTwoSum(t *testing.T) {
 		t.Errorf(" TwoSum result got %d != want %d", got, want)
 	}
 }
+
+func TestIsValid(t *testing.T) {
+	input := "()[]{}"
+	got := grind.IsValid(input)
+
+	want := true
+	// NOTE print boolean https://pkg.go.dev/fmt
+	if got != want {
+		t.Errorf("wanted %t , but got %t ", got, want)
+	}
+}
