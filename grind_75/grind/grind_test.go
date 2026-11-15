@@ -1,7 +1,6 @@
 package grind_test
 
 import (
-	"fmt"
 	"slices"
 	"testing"
 
@@ -51,6 +50,23 @@ func listFromSlice(sl []int) *grind.ListNode {
 func TestMergeTwoLists(t *testing.T) {
 	list1 := []int{1, 2, 4}
 	list2 := []int{1, 3, 4}
-	result := grind.MergeTwoLists(listFromSlice(list1), listFromSlice(list2))
-	fmt.Println(result)
+	got := grind.MergeTwoLists(listFromSlice(list1), listFromSlice(list2))
+
+	want := listFromSlice([]int{1, 1, 2, 3, 4, 4})
+
+	gotPointer := got
+	wantPointer := want
+
+	for i := 0; gotPointer != nil && wantPointer != nil; i++ {
+		if gotPointer.Val != wantPointer.Val {
+			t.Errorf("node %d: want %d, got %d", i, wantPointer.Val, gotPointer.Val)
+		}
+
+		gotPointer = gotPointer.Next
+		wantPointer = wantPointer.Next
+	}
+
+	if gotPointer != nil || wantPointer != nil {
+		t.Errorf("lists have different lengths")
+	}
 }
