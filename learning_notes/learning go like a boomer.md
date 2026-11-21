@@ -31,15 +31,15 @@ Tips:
 - [x] [backend basics article](https://eblog.fly.dev/backendbasics.html)
 - [x] [how i use htmx with go](https://www.alexedwards.net/blog/how-i-use-htmx-with-go)
 - [ ] [[Grind 75 leetcode in go]]
-- [ ] [[Read about Go it's GC, optimization techniques and profiling]]
-- [ ] [[ring buffer in go]]
-- [ ] [[ring buffer in golang]]
-- [ ] [[Network server tcp]]
 - [ ] [[make my own SSG (should be fun)]]
+- [ ] [[ring buffer in go]]
+- [ ] [[writing a text editor in 1k lines of code]
 - [ ] [[implement compression algo - huffman encoding]]
 - [ ] [[implementing DEFLATE (what git uses)]]
+- [ ] [[Read about Go it's GC, optimization techniques and profiling]]
+- [ ] [[Network server tcp]]
 - [ ] [[let's go further REST and MVC impl]]
-- [ ] [[writing a text editor in 1k lines of code]
+- [ ] [[vibe a go app]]
 
 ## EASY
 
