@@ -1,7 +1,5 @@
 package grind
 
-import "fmt"
-
 // Definition for a binary tree node.
 type TreeNode struct {
 	Val   int
@@ -11,7 +9,6 @@ type TreeNode struct {
 
 // queue is BFS
 func invertTree(root *TreeNode) *TreeNode {
-	savedRoot := root
 	if root == nil {
 		return nil
 	}
@@ -36,5 +33,5 @@ func invertTree(root *TreeNode) *TreeNode {
 		continue
 
 	}
-	return savedRoot
+	return root
 }
