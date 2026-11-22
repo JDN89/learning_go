@@ -1,5 +1,7 @@
 package grind
 
+import "fmt"
+
 // Definition for a binary tree node.
 type TreeNode struct {
 	Val   int
@@ -19,13 +21,19 @@ func invertTree(root *TreeNode) *TreeNode {
 
 	for len(queue) > 0 {
 		current := queue[0]
-		if current.Left == nil || current.Right == nil {
-			return current
+		queue = queue[1:]
+		if current.Left == nil && current.Right == nil {
+			continue
+		}
+		current.Left, current.Right = current.Right, current.Left
+		if current.Left != nil {
+			queue = append(queue, current.Left)
+		}
+		if current.Right != nil {
+			queue = append(queue, current.Right)
 		}
 
-		current.Left, current.Right = current.Right, current.Left
-		queue = queue[1:]
-		queue = append(queue, current.Left, current.Right)
+		continue
 
 	}
 	return savedRoot
